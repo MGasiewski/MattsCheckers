@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "game_controller.h"
 #include "board_view.h"
+#include "game_logic.h"
 #include <iostream>
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -10,18 +11,13 @@
 
 using namespace std;
 
-game_controller::game_controller() {
-}
-
-game_controller::~game_controller() {
-}
-
-void game_controller::set_board_view(board_view view) {
+game_controller::game_controller(game_logic logic, board_model* model, board_view view) {
+	this->logic = logic;
+	this->model = model;
 	this->view = view;
 }
 
-void game_controller::set_board_model(board_model board) {
-	this->board = board;
+game_controller::~game_controller() {
 }
 
 void game_controller::handle_key_down(int& user_x, int& user_y) {
@@ -83,21 +79,27 @@ void game_controller::handle_key_right(int& user_x, int& user_y) {
 }
 
 void game_controller::handle_space(int& user_x, int& user_y) {
-	if (board.get_board_matrix().at(user_y).at(user_x) == 2) {
-		vector<vector<int>> valid_moves = get_valid_moves_black();
+	vector<vector<int>>* board_matrix = model->get_board_matrix();
+	if ((*board_matrix).at(user_y).at(user_x) == 2) {
+		vector<vector<int>> valid_moves = get_valid_moves_black(user_x, user_y);
+		if (valid_moves.empty()) {
+			cout << "No moves available for this piece";
+			return;
+		}
 		view.flip_selected();
-		view.print_board(user_x, user_y);
+		logic.handle_movement(valid_moves, user_x, user_y);
+		view.flip_selected();
 	}
 }
 
-vector<vector<int>> game_controller::get_valid_moves_black(board_model board, int player_x, int player_y) {
-	vector<vector<int>> game_matrix = board.get_board_matrix();
+vector<vector<int>> game_controller::get_valid_moves_black(int player_x, int player_y) {
+	vector<vector<int>>* game_matrix = model->get_board_matrix();
 	vector<vector<int>> valid_moves;
 	if (player_y == 0) {
 		return valid_moves;
 	}
 	else if (player_x == 0) {
-		if (game_matrix.at(player_y - 1).at(player_x + 1) == 0) {
+		if ((*game_matrix).at(player_y - 1).at(player_x + 1) == 0) {
 			vector<int> single_move;
 			single_move.push_back(player_x + 1);
 			single_move.push_back(player_y - 1);
@@ -109,7 +111,7 @@ vector<vector<int>> game_controller::get_valid_moves_black(board_model board, in
 		}
 	}
 	else if (player_x == 7) {
-		if (game_matrix.at(player_y - 1).at(player_x - 1) == 0) {
+		if ((*game_matrix).at(player_y - 1).at(player_x - 1) == 0) {
 			vector<int> single_move;
 			single_move.push_back(player_x - 1);
 			single_move.push_back(player_y - 1);
@@ -121,13 +123,13 @@ vector<vector<int>> game_controller::get_valid_moves_black(board_model board, in
 		}
 	}
 	else {
-		if (game_matrix.at(player_y - 1).at(player_x - 1) == 0){
+		if ((*game_matrix).at(player_y - 1).at(player_x - 1) == 0){
 			vector<int> single_move;
 			single_move.push_back(player_x - 1);
 			single_move.push_back(player_y - 1);
 			valid_moves.push_back(single_move);
 		}
-		if (game_matrix.at(player_y - 1).at(player_x + 1) == 0) {
+		if ((*game_matrix).at(player_y - 1).at(player_x + 1) == 0) {
 			vector<int> single_move;
 			single_move.push_back(player_x + 1);
 			single_move.push_back(player_y - 1);

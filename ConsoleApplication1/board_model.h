@@ -9,9 +9,9 @@ public:
 	board_model();
 	~board_model();
 	void update_board_state(int player, int key);
-	vector<vector<int>> get_board_matrix();
+	vector<vector<int>>* get_board_matrix();
 private:
-	vector<vector<int>> board_matrix;
+	vector<vector<int>>* board_matrix;
 };
 
 
