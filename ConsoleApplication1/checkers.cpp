@@ -32,8 +32,6 @@ int main()
 	{
 		c = _getch();
 		controller.handle_user_input(c, user_x, user_y);
-		vector<vector<int>> valid_moves;
-		valid_moves = controller.get_valid_moves_black(user_x, user_y);
 	}
 	model->~board_model();
     return 0;

@@ -81,7 +81,7 @@ void game_controller::handle_key_right(int& user_x, int& user_y) {
 void game_controller::handle_space(int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = model->get_board_matrix();
 	if ((*board_matrix).at(user_y).at(user_x) == 2) {
-		vector<vector<int>> valid_moves = get_valid_moves_black(user_x, user_y);
+		vector<vector<int>> valid_moves = logic.get_valid_moves(user_x, user_y, true);
 		if (valid_moves.empty()) {
 			cout << "No moves available for this piece";
 			return;
@@ -89,53 +89,6 @@ void game_controller::handle_space(int& user_x, int& user_y) {
 		view.flip_selected();
 		logic.handle_movement(valid_moves, user_x, user_y);
 		view.flip_selected();
-	}
-}
-
-vector<vector<int>> game_controller::get_valid_moves_black(int player_x, int player_y) {
-	vector<vector<int>>* game_matrix = model->get_board_matrix();
-	vector<vector<int>> valid_moves;
-	if (player_y == 0) {
-		return valid_moves;
-	}
-	else if (player_x == 0) {
-		if ((*game_matrix).at(player_y - 1).at(player_x + 1) == 0) {
-			vector<int> single_move;
-			single_move.push_back(player_x + 1);
-			single_move.push_back(player_y - 1);
-			valid_moves.push_back(single_move);
-			return valid_moves;
-		}
-		else {
-			return valid_moves;
-		}
-	}
-	else if (player_x == 7) {
-		if ((*game_matrix).at(player_y - 1).at(player_x - 1) == 0) {
-			vector<int> single_move;
-			single_move.push_back(player_x - 1);
-			single_move.push_back(player_y - 1);
-			valid_moves.push_back(single_move);
-			return valid_moves;
-		}
-		else {
-			return valid_moves;
-		}
-	}
-	else {
-		if ((*game_matrix).at(player_y - 1).at(player_x - 1) == 0){
-			vector<int> single_move;
-			single_move.push_back(player_x - 1);
-			single_move.push_back(player_y - 1);
-			valid_moves.push_back(single_move);
-		}
-		if ((*game_matrix).at(player_y - 1).at(player_x + 1) == 0) {
-			vector<int> single_move;
-			single_move.push_back(player_x + 1);
-			single_move.push_back(player_y - 1);
-			valid_moves.push_back(single_move);
-		}
-		return valid_moves;
 	}
 }
 
@@ -158,7 +111,6 @@ void game_controller::handle_user_input(int input, int& user_x, int& user_y) {
 		handle_space(user_x, user_y);
 		break;
 	default:
-		cout << input << " is the number for the key you pressed" << endl;
 		break;
 	}
 }

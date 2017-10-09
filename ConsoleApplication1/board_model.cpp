@@ -69,5 +69,6 @@ void board_model::update_board_state(int player, int key)
 
 board_model::~board_model()
 {
-
+	board_matrix->clear();
+	delete board_matrix;
 }
