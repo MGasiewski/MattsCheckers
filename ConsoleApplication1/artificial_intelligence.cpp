@@ -19,8 +19,8 @@ vector<vector<int>> artificial_intelligence::get_moves(vector<vector<int>> posit
 	vector<vector<int>> moves;
 	vector<vector<int>> board_matrix = *(this->model->get_board_matrix());
 	for (auto position : positions) {
-		if (position[1] == 7) {
-			if (board_matrix[position[0] + 1][position[1] - 1] == 0) {
+		if (position[0] == 7) {
+			if (position[0] + 1 <8 && position[1]-1 >= 0 && board_matrix[position[0] + 1][position[1] - 1] == 0) {
 				vector<int> move;
 				move.push_back(position[0]);
 				move.push_back(position[1]);
@@ -29,8 +29,8 @@ vector<vector<int>> artificial_intelligence::get_moves(vector<vector<int>> posit
 				moves.push_back(move);
 			}
 		}
-		else if (position[1] == 0) {
-			if (board_matrix[position[0] + 1][position[1] + 1] == 0) {
+		else if (position[0] == 0) {
+			if (position[0] + 1 <8 && position[1] + 1 < 8 && board_matrix[position[0] + 1][position[1] + 1] == 0) {
 				vector<int> move;
 				move.push_back(position[0]);
 				move.push_back(position[1]);
@@ -40,7 +40,7 @@ vector<vector<int>> artificial_intelligence::get_moves(vector<vector<int>> posit
 			}
 		}
 		else {
-			if (board_matrix[position[0] + 1][position[1] + 1] == 0) {
+			if (position[0] + 1 <8 && position[1] + 1 < 8 &&  board_matrix[position[0] + 1][position[1] + 1] == 0) {
 				vector<int> move;
 				move.push_back(position[0]);
 				move.push_back(position[1]);
@@ -48,7 +48,7 @@ vector<vector<int>> artificial_intelligence::get_moves(vector<vector<int>> posit
 				move.push_back(position[1] + 1);
 				moves.push_back(move);
 			}
-			if (board_matrix[position[0] + 1][position[1] - 1] == 0) {
+			if (position[0] + 1 <8 && position[1] - 1 >= 0 && board_matrix[position[0] + 1][position[1] - 1] == 0) {
 				vector<int> move;
 				move.push_back(position[0]);
 				move.push_back(position[1]);

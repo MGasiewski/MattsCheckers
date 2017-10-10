@@ -12,6 +12,8 @@ public:
 	game_logic(board_model* model, board_view view);
 	game_logic();
 	bool can_jump(int player_x, int player_y);
+	vector<vector<int>> get_jumps(int player_x, int player_y);
+	vector<vector<int>> combine(vector<int>, vector<vector<int>>);
 	~game_logic();
 	void handle_movement(vector<vector<int>> moves, int& user_x, int& user_y);
 	vector<vector<int>> get_valid_moves(int player_x, int player_y, bool player_white);

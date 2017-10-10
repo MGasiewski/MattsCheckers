@@ -82,6 +82,10 @@ void game_controller::handle_space(int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = model->get_board_matrix();
 	if ((*board_matrix).at(user_y).at(user_x) == 2) {
 		vector<vector<int>> valid_moves = logic.get_valid_moves(user_x, user_y, true);
+		vector<vector<int>> jumps = logic.get_jumps(user_x, user_y);
+		for (auto jump : jumps) {
+			valid_moves.push_back(jump);
+		}
 		if (valid_moves.empty()) {
 			cout << "No moves available for this piece";
 			return;
