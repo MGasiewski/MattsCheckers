@@ -140,7 +140,11 @@ vector<vector<int>> game_logic::get_valid_moves(int player_x, int player_y, bool
 void game_logic::execute_move(vector<int> move, int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = (*model).get_board_matrix();
 	(*board_matrix)[user_y][user_x] = 0;
-	if (move.size() < 5){
+	//TODO implement correct placement after double (multi) jump
+	for (int i = 2; i < move.size(); i += 2) {
+		(*board_matrix)[move[i + 1]][move[i]] = 0;
+	}
+	if (move.size() < 5) {
 		user_y = move.at(1);
 		user_x = move.at(0);
 	}
@@ -149,12 +153,7 @@ void game_logic::execute_move(vector<int> move, int& user_x, int& user_y) {
 		user_x = move[move.size() - 4];
 	}
 	(*board_matrix)[user_y][user_x] = 2;
-	//TODO implement correct placement after double (multi) jump
-	if (move.size() > 2) {
-		for (int i = 2; i < move.size(); i += 2) {
-			(*board_matrix)[move[i + 1]][move[i]] = 0;
-		}
-	}
+	
 }
 
 game_logic::~game_logic() {
@@ -163,7 +162,12 @@ game_logic::~game_logic() {
 void game_logic::handle_movement(vector<vector<int>> moves, int& user_x, int& user_y) {
 	bool selected = true;
 	vector<vector<int>>::iterator it = moves.begin();
-	view.print_board_with_moves(moves, (*it)[0], (*it)[1]);
+	if ((*it).size() < 5) {
+		view.print_board_with_moves(moves, (*it)[0], (*it)[1]);
+	}
+	else {
+		view.print_board_with_moves(moves, (*it)[(*it).size() - 4], (*it)[(*it).size() - 3]);
+	}
 	cout << "Press LEFT and RIGHT to cycle through moves. Press space to execute move, or escape to select another piece";
 	int c = _getch();
 	while (selected) {
