@@ -3,6 +3,7 @@
 #include "board_view.h"
 #include <vector>
 #include "game_logic.h"
+#include "king_module.h"
 using namespace std;
 
 class game_controller
@@ -20,4 +21,5 @@ private:
 	board_view view;
 	board_model* model;
 	game_logic logic;
+	king_module km;
 };

@@ -137,8 +137,21 @@ vector<vector<int>> game_logic::get_valid_moves(int player_x, int player_y, bool
 	}
 }
 
+void game_logic::make_kings() {
+	vector<vector<int>>* board_matrix = model->get_board_matrix();
+	for (int i = 0; i < 8; i++) {
+		if ((*board_matrix).at(0).at(i) == 2) {
+			(*board_matrix).at(0).at(i) = 12;
+		}
+		if ((*board_matrix).at(7).at(i) == 1) {
+			(*board_matrix).at(7).at(i) = 11;
+		}
+	}
+}
+
 void game_logic::execute_move(vector<int> move, int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = (*model).get_board_matrix();
+	int piece_value = (*board_matrix)[user_y][user_x];
 	(*board_matrix)[user_y][user_x] = 0;
 	//TODO implement correct placement after double (multi) jump
 	for (int i = 2; i < move.size(); i += 2) {
@@ -152,7 +165,7 @@ void game_logic::execute_move(vector<int> move, int& user_x, int& user_y) {
 		user_y = move[move.size() - 3];
 		user_x = move[move.size() - 4];
 	}
-	(*board_matrix)[user_y][user_x] = 2;
+	(*board_matrix)[user_y][user_x] = piece_value;
 	
 }
 
@@ -221,7 +234,9 @@ void game_logic::handle_movement(vector<vector<int>> moves, int& user_x, int& us
 		case SPACE:
 			execute_move(*it, user_x, user_y);
 			view.clear_move_data(moves);
+			make_kings();
 			this->intelligence.do_move(model);
+			make_kings();
 			view.print_board(user_x, user_y);
 			selected = false;
 			break;

@@ -52,34 +52,7 @@ void board_view::print_board(int user_x, int user_y) {
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (j % 2 == i % 2) {
-				if (i == user_y && j == user_x) {
-					cout << ">";
-				}
-				else {
-					cout << (char)254u;
-				}
-				switch ((*board_matrix).at(i).at(j)) {
-				case 0:
-					cout << (char)254u;
-					break;
-				case 1:
-					cout << "B";
-					break;
-				case 2:
-					cout << "W";
-					break;
-				case 99:
-					cout << "X";
-					break;
-				default:
-					break;
-				}
-				if (selected && i == user_y && j == user_x) {
-					cout << "<";
-				}
-				else {
-					cout << (char)254u;
-				}
+				cout << (char)254u << (char)254u << (char)254u;
 			}
 			else {
 				if (i == user_y && j == user_x) {
@@ -93,10 +66,16 @@ void board_view::print_board(int user_x, int user_y) {
 					cout << " ";
 					break;
 				case 1:
-					cout << "B";
+					cout << "W";
+					break;
+				case 11:
+					cout << "W!";
 					break;
 				case 2:
-					cout << "W";
+					cout << "B";
+					break;
+				case 12:
+					cout << "B!";
 					break;
 				case 99:
 					cout << "X";
@@ -104,10 +83,7 @@ void board_view::print_board(int user_x, int user_y) {
 				default:
 					break;
 				}
-				if (selected && i == user_y && j == user_x) {
-					cout << "<";
-				}
-				else {
+				if ((*board_matrix).at(i).at(j) != 11 && (*board_matrix).at(i).at(j) != 12) {
 					cout << " ";
 				}
 			}

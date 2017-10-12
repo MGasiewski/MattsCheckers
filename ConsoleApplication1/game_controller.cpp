@@ -2,6 +2,7 @@
 #include "game_controller.h"
 #include "board_view.h"
 #include "game_logic.h"
+#include "king_module.h"
 #include <iostream>
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -90,9 +91,15 @@ void game_controller::handle_space(int& user_x, int& user_y) {
 			cout << "No moves available for this piece";
 			return;
 		}
-		view.flip_selected();
 		logic.handle_movement(valid_moves, user_x, user_y);
-		view.flip_selected();
+	}
+	else if ((*board_matrix).at(user_y).at(user_x) == 12) {
+		vector<vector<int>> moves = km.get_moves(board_matrix, user_y, user_x);
+		if (moves.empty()) {
+			cout << "No moves available for this piece";
+			return;
+		}
+		logic.handle_movement(moves, user_x, user_y);
 	}
 }
 
