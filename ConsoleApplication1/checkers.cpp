@@ -22,6 +22,7 @@ int main()
 {
 	board_model* model = new board_model();
 	board_view view(model);
+	model->set_test_layout();
 	game_logic logic(model, view);
 	game_controller controller(logic, model, view);
 	int user_x = 2;

@@ -153,7 +153,6 @@ void game_logic::execute_move(vector<int> move, int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = (*model).get_board_matrix();
 	int piece_value = (*board_matrix)[user_y][user_x];
 	(*board_matrix)[user_y][user_x] = 0;
-	//TODO implement correct placement after double (multi) jump
 	for (int i = 2; i < move.size(); i += 2) {
 		(*board_matrix)[move[i + 1]][move[i]] = 0;
 	}

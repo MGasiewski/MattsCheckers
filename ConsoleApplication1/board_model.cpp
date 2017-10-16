@@ -5,7 +5,9 @@
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define WHITE 1
+#define WHITE_KING 11
 #define BLACK 2
+#define BLACK_KING 12
 
 board_model::board_model()
 {
@@ -55,6 +57,12 @@ board_model::board_model()
 			}
 		}
 	}
+}
+
+void board_model::set_test_layout() {
+	board_matrix->at(5).at(2) = 12;
+	board_matrix->at(4).at(3) = 1;
+	board_matrix->at(1).at(6) = 0;
 }
 
 vector<vector<int>>* board_model::get_board_matrix()
