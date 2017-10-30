@@ -144,6 +144,7 @@
     <ClInclude Include="game_controller.h" />
     <ClInclude Include="game_logic.h" />
     <ClInclude Include="king_module.h" />
+    <ClInclude Include="regular_piece_module.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClCompile Include="game_logic.cpp" />
     <ClCompile Include="artificial_intelligence.cpp" />
     <ClCompile Include="king_module.cpp" />
+    <ClCompile Include="regular_piece_module.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -16,26 +16,34 @@ vector<vector<int>> king_module::get_moves(vector<vector<int>>* board_matrix, in
 	vector<vector<int>> moves;
 	if (king_y != 0 && king_x - 1 >= 0 && (*board_matrix).at(king_y - 1).at(king_x - 1) == 0) {
 		vector<int> move;
-		move.push_back(king_x - 1);
+		move.push_back(king_y);
+		move.push_back(king_x);
 		move.push_back(king_y - 1);
+		move.push_back(king_x - 1);
 		moves.push_back(move);
 	}
 	if (king_y != 0 && king_x + 1 < 8 && (*board_matrix).at(king_y - 1).at(king_x + 1) == 0) {
 		vector<int> move;
-		move.push_back(king_x + 1);
+		move.push_back(king_y);
+		move.push_back(king_x);
 		move.push_back(king_y - 1);
+		move.push_back(king_x + 1);
 		moves.push_back(move);
 	}
 	if (king_y != 7 && king_x - 1 >= 0 && (*board_matrix).at(king_y + 1).at(king_x - 1) == 0) {
 		vector<int> move;
-		move.push_back(king_x - 1);
+		move.push_back(king_y);
+		move.push_back(king_x);
 		move.push_back(king_y + 1);
+		move.push_back(king_x - 1);
 		moves.push_back(move);
 	}
 	if (king_y != 7 && king_x + 1 < 8 && (*board_matrix).at(king_y + 1).at(king_x + 1) == 0) {
 		vector<int> move;
-		move.push_back(king_x + 1);
+		move.push_back(king_y);
+		move.push_back(king_x);
 		move.push_back(king_y + 1);
+		move.push_back(king_x + 1);
 		moves.push_back(move);
 	}
 	vector<vector<int>> jumps = get_jumps(board_matrix, king_y, king_x, 0);
@@ -67,10 +75,12 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 	if (king_y - 2 >= 0 && king_x - 2 >= 0 && (*board_matrix).at(king_y - 1).at(king_x - 1) == 1) {
 		if ((*board_matrix).at(king_y - 2).at(king_x - 2) == 0 && direction!=LOWER_RIGHT) {
 			vector<int> jump;
-			jump.push_back(king_x - 2);
-			jump.push_back(king_y - 2);
-			jump.push_back(king_x - 1);
+			jump.push_back(king_y);
+			jump.push_back(king_x);
 			jump.push_back(king_y - 1);
+			jump.push_back(king_x - 1);
+			jump.push_back(king_y - 2);
+			jump.push_back(king_x - 2);
 			jump.push_back(UPPER_LEFT);
 			jumps.push_back(jump);
 		}
@@ -78,10 +88,12 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 	if (king_y - 2 >= 0 && king_x + 2 < 8 && (*board_matrix).at(king_y - 1).at(king_x + 1) == 1) {
 		if ((*board_matrix).at(king_y - 2).at(king_x + 2) == 0 && direction!=LOWER_LEFT) {
 			vector<int> jump;
-			jump.push_back(king_x + 2);
-			jump.push_back(king_y - 2);
-			jump.push_back(king_x + 1);
+			jump.push_back(king_y);
+			jump.push_back(king_x);
 			jump.push_back(king_y - 1);
+			jump.push_back(king_x + 1);
+			jump.push_back(king_y - 2);
+			jump.push_back(king_x + 2);
 			jump.push_back(UPPER_RIGHT);
 			jumps.push_back(jump);
 		}
@@ -89,10 +101,12 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 	if (king_y + 2 < 8 && king_x - 2 >= 0 && (*board_matrix).at(king_y + 1).at(king_x - 1) == 1) {
 		if ((*board_matrix).at(king_y + 2).at(king_x - 2) == 0 && direction!=UPPER_RIGHT) {
 			vector<int> jump;
-			jump.push_back(king_x - 2);
-			jump.push_back(king_y + 2);
-			jump.push_back(king_x - 1);
+			jump.push_back(king_y);
+			jump.push_back(king_x);
 			jump.push_back(king_y + 1);
+			jump.push_back(king_x - 1);
+			jump.push_back(king_y + 2);
+			jump.push_back(king_x - 2);
 			jump.push_back(LOWER_LEFT);
 			jumps.push_back(jump);
 		}
@@ -100,10 +114,12 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 	if (king_y + 2 < 8 && king_x + 2 < 8 && (*board_matrix).at(king_y + 1).at(king_x + 1) == 1) {
 		if ((*board_matrix).at(king_y + 2).at(king_x + 2) == 0 && direction!=UPPER_LEFT) {
 			vector<int> jump;
-			jump.push_back(king_x + 2);
-			jump.push_back(king_y + 2);
-			jump.push_back(king_x + 1);
+			jump.push_back(king_y);
+			jump.push_back(king_x);
 			jump.push_back(king_y + 1);
+			jump.push_back(king_x + 1);
+			jump.push_back(king_y + 2);
+			jump.push_back(king_x + 2);
 			jump.push_back(LOWER_RIGHT);
 			jumps.push_back(jump);
 		}
@@ -112,7 +128,7 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 	for (auto jump : jumps) {
 		int jump_direction = jump.back();
 		jump.pop_back();
-		vector<vector<int>> secondary_jumps = get_jumps(board_matrix, jump.at(1), jump.at(0), jump_direction);
+		vector<vector<int>> secondary_jumps = get_jumps(board_matrix, jump.at(jump.size()-2), jump.at(jump.size()-1), jump_direction);
 		if (secondary_jumps.size() > 0) {
 			vector<vector<int>> combined_jumps = combine(jump, secondary_jumps);
 			for (auto combined_jump : combined_jumps) {

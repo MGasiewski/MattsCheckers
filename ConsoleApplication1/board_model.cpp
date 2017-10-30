@@ -60,9 +60,13 @@ board_model::board_model()
 }
 
 void board_model::set_test_layout() {
-	board_matrix->at(5).at(2) = 12;
-	board_matrix->at(4).at(3) = 1;
-	board_matrix->at(1).at(6) = 0;
+	board_matrix->at(3).at(4) = 2;
+	board_matrix->at(3).at(0) = 2;
+	board_matrix->at(3).at(2) = 2;
+	board_matrix->at(4).at(1) = 2;
+	board_matrix->at(6).at(1) = 0;
+	board_matrix->at(6).at(3) = 0;
+	board_matrix->at(6).at(7) = 0;
 }
 
 vector<vector<int>>* board_model::get_board_matrix()

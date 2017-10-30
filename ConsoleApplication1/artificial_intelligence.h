@@ -1,15 +1,18 @@
 #pragma once
 #include "board_model.h"
+#include "king_module.h"
+#include "regular_piece_module.h"
 
 using namespace std;
 
-class artificial_intelligence
+class artificial_intelligence 
 {
 public:
 	artificial_intelligence();
 	~artificial_intelligence();
 	void do_move(board_model* model);
 private:
-	vector<vector<int>> get_moves(vector<vector<int>> positions);
 	board_model* model;
+	king_module km;
+	regular_piece_module rpm = nullptr;
 };

@@ -24,12 +24,15 @@ void board_view::print_board_with_moves(vector<vector<int>> moves, int user_x, i
 	vector<vector<int>>* board_matrix = model->get_board_matrix();
 	for (auto move : moves) {
 		if (move.size() < 5) {
-			(*board_matrix)[move[1]][move[0]] = 99;
+			(*board_matrix)[move[2]][move[3]] = 99;
 		}
 		else {
-			for (int i = 0; i < move.size(); i += 4) {
-				(*board_matrix)[move[i + 1]][move[i]] = 99;
+			for (int i = 2; i < move.size() - 2; i += 2) {
+				if ((*board_matrix)[move[i]][move[i + 1]] == 0) {
+					(*board_matrix)[move[i]][move[i + 1]] = 98;
+				}
 			}
+			(*board_matrix)[move[move.size() - 2]][move[move.size() - 1]] = 99;
 		}
 	}
 	print_board(user_x, user_y);
@@ -39,8 +42,8 @@ void board_view::clear_move_data(vector<vector<int>> moves) {
 	vector<vector<int>>* board_matrix = model->get_board_matrix();
 	for (auto move : moves) {
 		for (int i = 0; i < move.size(); i += 2) {
-			if ((*board_matrix)[move[i + 1]][move[i]] == 99) {
-				(*board_matrix)[move[i + 1]][move[i]] = 0;
+			if ((*board_matrix)[move[i]][move[i + 1]] == 99 || (*board_matrix)[move[i]][move[i + 1]] == 98) {
+				(*board_matrix)[move[i]][move[i + 1]] = 0;
 			}
 		}
 	}
@@ -76,6 +79,9 @@ void board_view::print_board(int user_x, int user_y) {
 					break;
 				case 12:
 					cout << "B!";
+					break;
+				case 98:
+					cout << "o";
 					break;
 				case 99:
 					cout << "X";

@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <conio.h>
 #include <iostream>
-#include <vector>
+#include <vector> 
 #include <stdlib.h>
 #include "board_model.h"
 #include "game_controller.h"

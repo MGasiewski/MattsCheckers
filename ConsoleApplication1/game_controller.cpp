@@ -3,6 +3,7 @@
 #include "board_view.h"
 #include "game_logic.h"
 #include "king_module.h"
+#include "regular_piece_module.h"
 #include <iostream>
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -81,9 +82,14 @@ void game_controller::handle_key_right(int& user_x, int& user_y) {
 
 void game_controller::handle_space(int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = model->get_board_matrix();
+	rpm = regular_piece_module(model);
+	rpm.set_opposing_color(1);
+	vector<int> position;
+	position.push_back(user_y);
+	position.push_back(user_x);
 	if ((*board_matrix).at(user_y).at(user_x) == 2) {
-		vector<vector<int>> valid_moves = logic.get_valid_moves(user_x, user_y, true);
-		vector<vector<int>> jumps = logic.get_jumps(user_x, user_y);
+		vector<vector<int>> valid_moves = rpm.get_moves(position);
+		vector<vector<int>> jumps = rpm.get_jumps(position);
 		for (auto jump : jumps) {
 			valid_moves.push_back(jump);
 		}

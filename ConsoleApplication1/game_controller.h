@@ -4,6 +4,7 @@
 #include <vector>
 #include "game_logic.h"
 #include "king_module.h"
+#include "regular_piece_module.h"
 using namespace std;
 
 class game_controller
@@ -19,6 +20,7 @@ public:
 	void handle_space(int& user_x, int& user_y);
 private:
 	board_view view;
+	regular_piece_module rpm = nullptr;
 	board_model* model;
 	game_logic logic;
 	king_module km;
