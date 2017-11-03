@@ -86,7 +86,7 @@ vector<vector<int>> regular_piece_module::get_jumps(vector<int> position) {
 	vector<vector<int>> game_matrix = *(this->model->get_board_matrix());
 	vector<vector<int>> jumps;
 	if (under_limit_for_jump(position) && position.at(1) + 2 < 8) {
-		if (game_matrix[position[0] + direction][position[1] + 1] == opposing_color && game_matrix[position[0] + 2 * direction][position[1] + 2] == 0) {
+		if (game_matrix[position[0] + direction][position[1] + 1] % 10 == opposing_color && game_matrix[position[0] + 2 * direction][position[1] + 2] == 0) {
 			vector<int> move;
 			move.push_back(position[0]);
 			move.push_back(position[1]);
@@ -98,7 +98,7 @@ vector<vector<int>> regular_piece_module::get_jumps(vector<int> position) {
 		}
 	}
 	if (under_limit_for_jump(position) && position.at(1) - 2 >= 0) {
-		if (game_matrix[position[0] + direction ][position[1] - 1] == opposing_color && game_matrix[position[0] + 2 * direction][position[1] - 2] == 0) {
+		if (game_matrix[position[0] + direction ][position[1] - 1] % 10 == opposing_color && game_matrix[position[0] + 2 * direction][position[1] - 2] == 0) {
 			vector<int> move;
 			move.push_back(position[0]);
 			move.push_back(position[1]);

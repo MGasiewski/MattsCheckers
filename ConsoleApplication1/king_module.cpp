@@ -12,6 +12,10 @@ king_module::king_module(){}
 
 king_module::~king_module(){}
 
+void king_module::set_opposing_color(int color) {
+	this->opposing_color = color;
+}
+
 vector<vector<int>> king_module::get_moves(vector<vector<int>>* board_matrix, int king_y, int king_x) {
 	vector<vector<int>> moves;
 	if (king_y != 0 && king_x - 1 >= 0 && (*board_matrix).at(king_y - 1).at(king_x - 1) == 0) {
@@ -72,7 +76,7 @@ vector<vector<int>> king_module::combine(vector<int> jump, vector<vector<int>> a
 
 vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, int king_y, int king_x, int direction) {
 	vector<vector<int>> jumps;
-	if (king_y - 2 >= 0 && king_x - 2 >= 0 && (*board_matrix).at(king_y - 1).at(king_x - 1) == 1) {
+	if (king_y - 2 >= 0 && king_x - 2 >= 0 && (*board_matrix).at(king_y - 1).at(king_x - 1) % 10 == opposing_color) {
 		if ((*board_matrix).at(king_y - 2).at(king_x - 2) == 0 && direction!=LOWER_RIGHT) {
 			vector<int> jump;
 			jump.push_back(king_y);
@@ -85,7 +89,7 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 			jumps.push_back(jump);
 		}
 	}
-	if (king_y - 2 >= 0 && king_x + 2 < 8 && (*board_matrix).at(king_y - 1).at(king_x + 1) == 1) {
+	if (king_y - 2 >= 0 && king_x + 2 < 8 && (*board_matrix).at(king_y - 1).at(king_x + 1) % 10 == opposing_color) {
 		if ((*board_matrix).at(king_y - 2).at(king_x + 2) == 0 && direction!=LOWER_LEFT) {
 			vector<int> jump;
 			jump.push_back(king_y);
@@ -98,7 +102,7 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 			jumps.push_back(jump);
 		}
 	}
-	if (king_y + 2 < 8 && king_x - 2 >= 0 && (*board_matrix).at(king_y + 1).at(king_x - 1) == 1) {
+	if (king_y + 2 < 8 && king_x - 2 >= 0 && (*board_matrix).at(king_y + 1).at(king_x - 1) % 10 == opposing_color) {
 		if ((*board_matrix).at(king_y + 2).at(king_x - 2) == 0 && direction!=UPPER_RIGHT) {
 			vector<int> jump;
 			jump.push_back(king_y);
@@ -111,7 +115,7 @@ vector<vector<int>> king_module::get_jumps(vector<vector<int>>* board_matrix, in
 			jumps.push_back(jump);
 		}
 	}
-	if (king_y + 2 < 8 && king_x + 2 < 8 && (*board_matrix).at(king_y + 1).at(king_x + 1) == 1) {
+	if (king_y + 2 < 8 && king_x + 2 < 8 && (*board_matrix).at(king_y + 1).at(king_x + 1) % 10 == opposing_color) {
 		if ((*board_matrix).at(king_y + 2).at(king_x + 2) == 0 && direction!=UPPER_LEFT) {
 			vector<int> jump;
 			jump.push_back(king_y);
