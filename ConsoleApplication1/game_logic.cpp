@@ -49,6 +49,44 @@ void game_logic::execute_move(vector<int> move, int& user_x, int& user_y) {
 game_logic::~game_logic() {
 }
 
+bool game_logic::is_game_over() {
+	vector<vector<int>> regular_pieces;
+	vector<vector<int>> kings;
+	vector<vector<int>> board_matrix = *model->get_board_matrix();
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (board_matrix[i][j] == 2) {
+				vector<int> piece;
+				piece.push_back(i);
+				piece.push_back(j);
+				regular_pieces.push_back(piece);
+			}
+			if (board_matrix[i][j] == 12) {
+				vector<int> king;
+				king.push_back(i);
+				king.push_back(j);
+				kings.push_back(king);
+			}
+		}
+	}
+	vector<vector<int>> regular_moves;
+	vector<vector<int>> king_moves;
+	for (auto king : kings) {
+		vector<vector<int>> kmoves = km.get_moves(&board_matrix, king[0], king[1]);
+		king_moves.insert(king_moves.end(), kmoves.begin(), kmoves.end());
+	}
+	for (auto piece: regular_pieces) {
+		vector<vector<int>> rmoves = rpm.get_moves(piece, board_matrix);
+		regular_moves.insert(regular_moves.end(), rmoves.begin(), rmoves.end());
+	}
+	if ((regular_pieces.empty() && kings.empty()) || (regular_moves.empty() && king_moves.empty())) {
+		cout << "YOU LOSE. GAME over" << endl;
+		cout << "Press key to exit" << endl;
+		int x = _gettch();
+		exit(EXIT_SUCCESS);
+	}
+}
+
 void game_logic::handle_movement(vector<vector<int>> moves, int& user_x, int& user_y) {
 	bool selected = true;
 	vector<vector<int>>::iterator it = moves.begin();

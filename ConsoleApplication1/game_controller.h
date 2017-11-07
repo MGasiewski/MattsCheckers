@@ -20,7 +20,7 @@ public:
 	void handle_space(int& user_x, int& user_y);
 private:
 	board_view view;
-	regular_piece_module rpm = nullptr;
+	regular_piece_module rpm;
 	board_model* model;
 	game_logic logic;
 	king_module km;

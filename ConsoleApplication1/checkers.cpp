@@ -22,11 +22,11 @@ int main()
 {
 	board_model* model = new board_model();
 	board_view view(model);
-	//model->set_test_layout();
 	game_logic logic(model, view);
 	game_controller controller(logic, model, view);
 	int user_x = 2;
 	int user_y = 5;
+	//model->set_test_layout();
 	view.print_board(user_x, user_y);
 	int c = 0;
 	while (1)

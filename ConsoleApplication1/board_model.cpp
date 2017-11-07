@@ -60,13 +60,21 @@ board_model::board_model()
 }
 
 void board_model::set_test_layout() {
-	board_matrix->at(3).at(4) = 2;
-	board_matrix->at(3).at(0) = 2;
-	board_matrix->at(3).at(2) = 2;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			board_matrix->at(i).at(j) = 0;
+		}
+	}
+	board_matrix->at(3).at(0) = 1;
+	board_matrix->at(3).at(2) = 1;
+	board_matrix->at(3).at(4) = 1;
+	board_matrix->at(3).at(6) = 1;
+
 	board_matrix->at(4).at(1) = 2;
-	board_matrix->at(6).at(1) = 0;
-	board_matrix->at(6).at(3) = 0;
-	board_matrix->at(6).at(7) = 0;
+	board_matrix->at(6).at(1) = 2;
+	board_matrix->at(6).at(3) = 2;
+	board_matrix->at(4).at(3) = 2;
+
 }
 
 vector<vector<int>>* board_model::get_board_matrix()

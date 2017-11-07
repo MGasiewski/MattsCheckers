@@ -82,14 +82,14 @@ void game_controller::handle_key_right(int& user_x, int& user_y) {
 
 void game_controller::handle_space(int& user_x, int& user_y) {
 	vector<vector<int>>* board_matrix = model->get_board_matrix();
-	rpm = regular_piece_module(model);
+	rpm = regular_piece_module();
 	rpm.set_opposing_color(1);
 	vector<int> position;
 	position.push_back(user_y);
 	position.push_back(user_x);
 	if ((*board_matrix).at(user_y).at(user_x) == 2) {
-		vector<vector<int>> valid_moves = rpm.get_moves(position);
-		vector<vector<int>> jumps = rpm.get_jumps(position);
+		vector<vector<int>> valid_moves = rpm.get_moves(position, *board_matrix);
+		vector<vector<int>> jumps = rpm.get_jumps(position, *board_matrix);
 		for (auto jump : jumps) {
 			valid_moves.push_back(jump);
 		}

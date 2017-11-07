@@ -17,12 +17,13 @@ public:
 	void handle_movement(vector<vector<int>> moves, int& user_x, int& user_y);
 	vector<vector<int>> get_valid_moves(int player_x, int player_y, bool player_white);
 	vector<vector<int>> get_jumps(int player_x, int player_y);
+	bool is_game_over();
 private:
 	void execute_move(vector<int> move, int& user_x, int& user_y);
-	vector<vector<int>> combine(vector<int>, vector<vector<int>>);
 	void make_kings();
 	artificial_intelligence intelligence;
 	board_model* model;
 	board_view view;
 	king_module km;
+	regular_piece_module rpm;
 };
